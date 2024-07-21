@@ -9,20 +9,18 @@ This project demonstrates the application of skills learned during Tuwaiq's Djan
 - Proper use of viewsets and routers
 - Handling of database relationships (One-to-Many, Many-to-Many)
 - Implementation of filtering, sorting, and pagination
-- Comprehensive unit tests for API endpoints
 
 ## Project Structure:
 - User management
 - Product catalog with categories
 - Order processing
 - Review system
-- Basic payment integration
 
 ## Highlights:
 - API design and documentation
 - Database schema design and optimization
 - Django ORM usage for complex queries
 - Proper handling of business logic in serializers and views
-- Implementation of permissions and throttling
+- Implementation of permissions
 
 While primarily focusing on the API, the project provides a solid foundation for building a full-stack e-commerce solution, demonstrating the practical application of Django and RESTful API concepts learned during the Tuwaiq bootcamp.

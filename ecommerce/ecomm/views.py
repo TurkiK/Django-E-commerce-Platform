@@ -1,3 +1,22 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import loader
 
-# Create your views here.
+from .models import Order, Product, Category, Review, OrderItem, User, Payment
+
+def Login(request):
+
+
+def Home(request):
+
+
+def Product(request, id):
+
+
+def Cart(request):
+
+
+def OrderDetails(request, id):
+
+
+def OrderHistory(request):
+

@@ -37,7 +37,7 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField()
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, related_name='order_items', on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='order_items', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.product.name} {self.quantity}"

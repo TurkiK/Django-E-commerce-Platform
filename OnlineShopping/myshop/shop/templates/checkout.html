@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+    <h1>Checkout</h1>
+    {% if error %}
+        <p><strong>{{ error }}</strong></p>
+    {% endif %}
+    <p>Total cost: ${{ total_price|floatformat:2 }}</p>
+    <p>Your balance: ${{ user_profile.balance|floatformat:2 }}</p>
+    <form action="{% url 'checkout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm Purchase</button>
+    </form>
+{% endblock %}

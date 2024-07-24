@@ -3,6 +3,7 @@
 <head>
     <title>{% block title %}Online Shop{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/22a95aa40d.js" crossorigin="anonymous"></script>
     <!--
         Main color: #f97316
         Main color light: #fdba74        
@@ -20,9 +21,9 @@
                   <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
                       <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" -->
-                      <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Home</a>
-                      <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Order History</a>
-                      <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Logout</a>
+                      <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Home</a>
+                      <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Order History</a>
+                      <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Logout</a>
                     </div>
                   </div>
                 </div>
@@ -50,9 +51,9 @@
             <div class="sm:hidden" id="mobile-menu">
               <div class="space-y-1 px-2 pb-3 pt-2">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" -->
-                <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Home</a>
-                <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Order History</a>
-                <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Logout</a>
+                <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Home</a>
+                <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Order History</a>
+                <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Logout</a>
               </div>
             </div>
           </nav>

@@ -76,6 +76,23 @@ def add_to_cart(request, pk):
 
 
 @login_required
+def add_to_cart_home(request, pk):
+    if request.method == "POST":
+        quantity = int(request.POST.get('quantity', 1))  # Get the quantity from the form, default to 1 if not found
+        product = Product.objects.get(pk=pk)
+        cart = request.session.get('cart', {})
+
+        if str(pk) in cart:
+            cart[str(pk)]['quantity'] += quantity
+        else:
+            cart[str(pk)] = {'price': float(product.price), 'quantity': quantity}
+
+        request.session['cart'] = cart
+        return redirect('home')
+    return redirect('home')
+
+
+@login_required
 def cart_detail(request):
     cart = request.session.get('cart', {})
     products = Product.objects.filter(id__in=cart.keys())

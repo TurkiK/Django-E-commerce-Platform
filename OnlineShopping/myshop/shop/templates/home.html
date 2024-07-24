@@ -10,9 +10,21 @@
 
 {% block content %}
     <div class="flex flex-col items-center gap-16">
-        <div class="mt-5">
-            <img class="rounded-md" src="https://placehold.co/1200x400">
-        </div>
+        <div class="mt-5 relative">
+            <img class="rounded-lg w-full h-auto" src="https://i.ibb.co/kxWj7YQ/Untitled-design.png" alt="Overlay Image">
+            <div class="absolute inset-y-0 left-0 w-1/2 bg-black bg-opacity-50 flex flex-col justify-center text-2xl rounded-lg justify-items-start text-white px-20">
+                <div class="font-bold text-3xl mb-2">
+                    <p>Your One-Stop</p>
+                    <p>Electronic Market</p>
+                </div>
+                <div class="text-sm mb-6">
+                    <p>Welcome to e-shop, a place where you can browse and buy everything from electronics to you everyday items!</p>
+                </div>
+                <div>
+                    <a href="{% url 'cart_detail' %}"><button class="bg-[#f97316] rounded justify-center py-2 px-10 font-bold text-lg hover:bg-[#fdba74] transition duration-300 ease-in-out">Shop Now</button></a>
+                </div>
+            </div>
+        </div>      
         <div class="flex flex-row gap-10 cursor-default	">
             <div class="flex flex-row items-center gap-8">
                 <img src="https://www.svgrepo.com/show/290052/headset.svg" width="50" height="50">
@@ -50,14 +62,15 @@
             <ul class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 w-full max-w-6xl">
                 {% for product in products %}
                 <li>
-                    <div class="rounded p-4 flex flex-col items-center hover:ring-4 hover:ring-gray-200">
+                    <div class="rounded p-4 flex flex-col items-center hover:ring-4 hover:ring-gray-200 transition duration-300 ease-in-out">
                         <a href="{% url 'product_detail' pk=product.pk %}">
                             <img class="rounded-md mb-2" src="https://prd.place/300/400?id={{product.id}}" alt="{{ product.name }}">
                             <span class="uppercase text-gray-500">{{ product.category.name }}</span>
                             <p class="text-sm">{{ product.name }}</p>
+                            <i class="fa-solid fa-star text-yellow-500 text-sm"></i> <span class="text-sm pt-2">   4.2</span>
                             <p><strong>${{ product.price }}</strong></p>
                         </a>
-                        <form class="rounded bg-[#f97316] hover:bg-[#fdba74] w-full mt-2" action="{% url 'add_to_cart' pk=product.pk %}" method="post">
+                        <form class="rounded bg-[#f97316] hover:bg-[#fdba74] w-full mt-2 transition duration-300 ease-in-out" action="{% url 'add_to_cart_home' pk=product.pk %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="quantity" value="1">
                             <input type="submit" value="Add to cart" class="w-full py-1 text-center text-white font-semibold cursor-pointer">

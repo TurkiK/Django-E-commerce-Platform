@@ -2,32 +2,66 @@
 <html>
 <head>
     <title>{% block title %}Online Shop{% endblock %}</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; padding: 0; background-color: #f4f4f4; color: #333; }
-        header { background: #007BFF; padding: 10px 20px; color: white; }
-        header a { color: white; text-decoration: none; padding: 8px; }
-        header a:hover { text-decoration: underline; }
-        ul { padding: 0; }
-        li { list-style: none; margin: 10px 0; }
-        button, input[type="submit"] { cursor: pointer; padding: 8px 15px; background-color: #007BFF; color: white; border: none; border-radius: 5px; }
-        button:hover, input[type="submit"]:hover { background-color: #0056b3; }
-        .container { background-color: white; padding: 20px; border-radius: 8px; }
-        footer { text-align: center; margin-top: 20px; padding: 20px; font-size: 0.8em; background-color: #ddd; }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!--
+        Main color: #f97316
+        Main color light: #fdba74        
+    -->
 </head>
-<body>
-    <header>
-        <h1>Online Shop</h1>
-        <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'cart_detail' %}">View Cart</a>
-        <a href="{% url 'order_history' %}">Order History</a>
-        <a href="{% url 'logout' %}">Logout</a>
+<body class="flex flex-col justify-between min-h-screen">
+    <header class="h-15">
+        <nav class="bg-[#f97316]">
+            <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+              <div class="relative flex h-16 items-center justify-between">
+                <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                  <div class="flex flex-shrink-0 items-center">
+                    <img class="h-8 w-auto" src="https://www.svgrepo.com/show/90104/groceries.svg" alt="Your Company">
+                  </div>
+                  <div class="hidden sm:ml-6 sm:block">
+                    <div class="flex space-x-4">
+                      <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" -->
+                      <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Home</a>
+                      <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Order History</a>
+                      <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Logout</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  <a href ="{% url 'cart_detail' %}"><button type="button" class="flex flex-row gap-2 text-white text-sm items-center relative rounded-full bg-[#f97316] p-1 text-gray-400 hover:ring-2 hover: ring-[#fb923c] hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <span class="absolute -inset-1.5"></span>
+                    <span class="sr-only">Cart</span>
+                    <svg version="1.1" width="26" height="26" viewBox="0 0 256 256" xml:space="preserve">
+                        <defs>
+                        </defs>
+                        <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                            <path d="M 74.396 66.93 h -47.12 c -3.491 0 -5.549 -2.665 -5.777 -5.299 c -0.178 -2.057 0.741 -4.326 2.792 -5.506 L 16.745 22.34 c -0.132 -0.592 0.012 -1.213 0.392 -1.687 c 0.379 -0.474 0.954 -0.75 1.561 -0.75 H 88 c 0.647 0 1.256 0.314 1.631 0.842 c 0.375 0.528 0.471 1.206 0.258 1.817 l -7.983 22.876 c -0.991 2.838 -3.446 4.921 -6.406 5.438 l -48.522 8.48 c -0.006 0.001 -0.012 0.002 -0.019 0.003 c -1.499 0.267 -1.507 1.541 -1.473 1.926 c 0.033 0.386 0.261 1.644 1.792 1.644 h 47.12 c 1.104 0 2 0.896 2 2 S 75.501 66.93 74.396 66.93 z M 21.193 23.904 l 6.966 31.186 l 46.652 -8.152 c 1.533 -0.268 2.805 -1.347 3.318 -2.817 l 7.055 -20.216 H 21.193 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255, 255, 255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                            <path d="M 27.846 83.111 c -3.615 0 -6.555 -2.94 -6.555 -6.555 c 0 -3.615 2.94 -6.556 6.555 -6.556 s 6.556 2.94 6.556 6.556 C 34.401 80.171 31.46 83.111 27.846 83.111 z M 27.846 74.001 c -1.409 0 -2.555 1.146 -2.555 2.556 c 0 1.408 1.146 2.555 2.555 2.555 c 1.409 0 2.556 -1.146 2.556 -2.555 C 30.401 75.147 29.255 74.001 27.846 74.001 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255, 255, 255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                            <path d="M 68.845 83.111 c -3.615 0 -6.556 -2.94 -6.556 -6.555 c 0 -3.615 2.94 -6.556 6.556 -6.556 s 6.556 2.94 6.556 6.556 C 75.4 80.171 72.46 83.111 68.845 83.111 z M 68.845 74.001 c -1.409 0 -2.556 1.146 -2.556 2.556 c 0 1.408 1.146 2.555 2.556 2.555 s 2.556 -1.146 2.556 -2.555 C 71.4 75.147 70.254 74.001 68.845 74.001 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255, 255, 255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                            <path d="M 18.695 23.904 c -0.916 0 -1.742 -0.633 -1.95 -1.564 l -1.407 -6.301 c -0.677 -3.033 -3.321 -5.151 -6.428 -5.151 H 2 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 h 6.909 c 4.995 0 9.244 3.404 10.333 8.279 l 1.407 6.301 c 0.241 1.078 -0.438 2.147 -1.516 2.388 C 18.986 23.889 18.839 23.904 18.695 23.904 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255, 255, 255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        </g>
+                    </svg>
+                    {% block cart_count %}
+                    {% endblock %}
+                  </button></a>
+                </div>
+              </div>
+            </div>
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div class="sm:hidden" id="mobile-menu">
+              <div class="space-y-1 px-2 pb-3 pt-2">
+                <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" -->
+                <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Home</a>
+                <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Order History</a>
+                <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white">Logout</a>
+              </div>
+            </div>
+          </nav>
     </header>
-    <div class="container">
+    <div class="mb-auto flex-grow p-4 container mx-auto">
         {% block content %}
         {% endblock %}
     </div>
-    <footer>
+    <footer class="h-10 text-center">
         &copy; 2024 Online Shop. All rights reserved.
     </footer>
 </body>

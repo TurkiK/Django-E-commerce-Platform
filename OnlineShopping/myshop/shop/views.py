@@ -46,7 +46,10 @@ def user_logout(request):
 @login_required
 def home(request):
     products = Product.objects.all()
-    return render(request, 'home.html', {'products': products})
+    cart = request.session.get('cart', {})
+    cart_count = sum(item['quantity'] for item in cart.values())
+
+    return render(request, 'home.html', {'products': products, 'cart_items': cart_count})
 
 
 @login_required

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Cart</h2>
+<ul>
+    {% for item in cart_items %}
+    <li>
+        {{ item.product.name }} - Quantity: {{ item.quantity }} - Subtotal: ${{ item.subtotal }}
+        <form action="{% url 'remove_from_cart' pk=item.product.pk %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Remove</button>
+        </form>
+    </li>
+    {% empty %}
+    <li>Your cart is empty.</li>
+    {% endfor %}
+</ul>
+<p>Total Price: ${{ total_price|floatformat:2 }}</p>
+<a href="{% url 'checkout' %}">Checkout</a>
+<a href="{% url 'home' %}">Continue Shopping</a>
+<a href="{% url 'change_password' %}">Change your password?</a>
+{% endblock %}

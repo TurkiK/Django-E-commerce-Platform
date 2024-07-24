@@ -1,0 +1,12 @@
+{
+  "name": "django-e-commerce-platform-onlineshopping",
+  "version": "1.0.0",
+  "description": "This project demonstrates the application of skills learned during Tuwaiq's Django RESTful API program. It showcases a robust backend for an e-commerce platform, emphasizing RESTful API design principles and Django best practices.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

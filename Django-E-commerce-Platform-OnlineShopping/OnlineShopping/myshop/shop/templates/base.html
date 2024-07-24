@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Online Shop{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 0; background-color: #f4f4f4; color: #333; }
+        header { background: #007BFF; padding: 10px 20px; color: white; }
+        header a { color: white; text-decoration: none; padding: 8px; }
+        header a:hover { text-decoration: underline; }
+        ul { padding: 0; }
+        li { list-style: none; margin: 10px 0; }
+        button, input[type="submit"] { cursor: pointer; padding: 8px 15px; background-color: #007BFF; color: white; border: none; border-radius: 5px; }
+        button:hover, input[type="submit"]:hover { background-color: #0056b3; }
+        .container { background-color: white; padding: 20px; border-radius: 8px; }
+        footer { text-align: center; margin-top: 20px; padding: 20px; font-size: 0.8em; background-color: #ddd; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Shop</h1>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'cart_detail' %}">View Cart</a>
+        <a href="{% url 'order_history' %}">Order History</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </header>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer>
+        &copy; 2024 Online Shop. All rights reserved.
+    </footer>
+</body>
+</html>

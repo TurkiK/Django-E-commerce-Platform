@@ -111,28 +111,44 @@ def remove_from_cart(request, pk):
 def checkout(request):
     user_profile = UserProfile.objects.get(user=request.user)
     cart = request.session.get('cart', {})
-    total_price = Decimal('0.00')  # Initialize total_price as Decimal
+    total_price = Decimal('0.00')
 
-    # Calculate total price
-    for pk, details in cart.items():
-        total_price += Decimal(details['quantity']) * Decimal(details['price'])
+    # Calculate total price and prepare to update stock
+    products = Product.objects.filter(id__in=cart.keys())
+    for product in products:
+        item_quantity = cart[str(product.id)]['quantity']
+        item_price = Decimal(cart[str(product.id)]['price'])
+        total_price += item_quantity * item_price
+
+        # Check if enough stock is available
+        if product.stock < item_quantity:
+            return render(request, 'checkout.html', {
+                'error': f'Not enough stock for {product.name}. Only {product.stock} left.'
+            })
 
     if user_profile.balance >= total_price:
         order = Order.objects.create(user=request.user, total_price=total_price, is_completed=True)
-        for pk, details in cart.items():
-            product = Product.objects.get(pk=pk)
+
+        # Update product stock and create order items
+        for product in products:
+            item_quantity = cart[str(product.id)]['quantity']
+            product.stock -= item_quantity  # Deduct the quantity from the product stock
+            product.save()
+
             OrderItem.objects.create(
                 order=order,
                 product=product,
-                quantity=details['quantity']
+                quantity=item_quantity
             )
-        user_profile.balance -= total_price  # Ensure total_price is a Decimal
+
+        user_profile.balance -= total_price
         user_profile.save()
         request.session['cart'] = {}  # Clear the cart
         return redirect('order_history')
     else:
         return render(request, 'checkout.html', {'error': 'Insufficient funds'})
 
+    return redirect('cart_detail')
 @login_required
 def order_history(request):
     orders = Order.objects.filter(user=request.user)

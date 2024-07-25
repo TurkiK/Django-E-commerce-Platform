@@ -1,7 +1,10 @@
+from django.core.checks import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+
+from .forms import BalanceForm
 from .models import Product, Order, OrderItem, UserProfile
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -46,10 +49,6 @@ def user_logout(request):
 @login_required
 def home(request):
     products = Product.objects.all()
-    cart = request.session.get('cart', {})
-    cart_count = sum(item['quantity'] for item in cart.values())
-
-    return render(request, 'home.html', {'products': products, 'cart_items': cart_count})
 
 
 @login_required
@@ -73,23 +72,6 @@ def add_to_cart(request, pk):
         request.session['cart'] = cart
         return redirect('cart_detail')
     return redirect('product_detail', pk=pk)
-
-
-@login_required
-def add_to_cart_home(request, pk):
-    if request.method == "POST":
-        quantity = int(request.POST.get('quantity', 1))  # Get the quantity from the form, default to 1 if not found
-        product = Product.objects.get(pk=pk)
-        cart = request.session.get('cart', {})
-
-        if str(pk) in cart:
-            cart[str(pk)]['quantity'] += quantity
-        else:
-            cart[str(pk)] = {'price': float(product.price), 'quantity': quantity}
-
-        request.session['cart'] = cart
-        return redirect('home')
-    return redirect('home')
 
 
 @login_required
@@ -153,3 +135,31 @@ def checkout(request):
 def order_history(request):
     orders = Order.objects.filter(user=request.user)
     return render(request, 'order_history.html', {'orders': orders})
+
+
+def purchase_item(request, product_id):
+    user_profile = request.user.userprofile
+    product = get_object_or_404(Product, id=product_id)
+    if user_profile.balance >= product.price:
+        user_profile.balance -= product.price
+        user_profile.save()
+        messages.success(request, 'Purchase successful!')
+    else:
+        messages.error(request, 'Insufficient balance.')
+    return redirect('product_list')
+
+
+@login_required
+def add_balance(request):
+    if request.method == 'POST':
+        form = BalanceForm(request.POST)
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+            profile = UserProfile.objects.get(user=request.user)
+            profile.balance += amount
+            profile.save()
+            return redirect('home')
+    else:
+        form = BalanceForm()
+
+    return render(request, 'add_balance.html', {'form': form})

@@ -57,6 +57,11 @@
               </div>
             </div>
           </nav>
+    {% if user.is_authenticated %}
+        <span>Welcome, {{ user.username }}! Balance: ${{ user_balance }}</span>
+        <a href="{% url 'add_balance' %}">Add to Balance</a>
+    {% endif %}
+    <a href="{% url 'logout' %}">Logout</a>
     </header>
     <div class="mb-auto flex-grow p-4 container mx-auto">
         {% block content %}

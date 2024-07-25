@@ -5,34 +5,44 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/22a95aa40d.js" crossorigin="anonymous"></script>
     <!--
-        Main color: #f97316
-        Main color light: #fdba74        
+        Old Main color: #f97316
+        New Main Color: indigo-500
+        Old Main color light: #fdba74
+        New Main Color Light: indigo-300    
     -->
 </head>
 <body class="flex flex-col justify-between min-h-screen">
     <header class="h-15">
-        <nav class="bg-[#f97316]">
+        <nav class="bg-indigo-500">
             <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
               <div class="relative flex h-16 items-center justify-between">
+                <div class="text-white">
+                  {% if user.is_authenticated %}
+                  <span>Welcome, {{ user.username }}!</span>
+                  {% endif %}
+                </div>
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                  
                   <div class="flex flex-shrink-0 items-center">
                     <img class="h-8 w-auto" src="https://www.svgrepo.com/show/90104/groceries.svg" alt="Your Company">
                   </div>
                   <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
                       <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" -->
-                      <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Home</a>
-                      <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Order History</a>
-                      <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Logout</a>
-                      {% if user.is_authenticated %}
-                        <span>Welcome, {{ user.username }}! Balance: ${{ user_balance }}</span>
+                      <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Home</a>
+                      <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Order History</a>
+                      <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Logout</a>
+                      <div class="text-white">
+                        {% if user.is_authenticated %}
+                        <span>Balance: ${{ user_balance }}</span>
                         <a href="{% url 'add_balance' %}">Add to Balance</a>
-                      {% endif %}
+                        {% endif %}
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  <a href ="{% url 'cart_detail' %}"><button type="button" class="flex flex-row gap-2 text-white text-sm items-center relative rounded-full bg-[#f97316] p-1 text-gray-400 hover:ring-2 hover: ring-[#fb923c] hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <a href ="{% url 'cart_detail' %}"><button type="button" class="flex flex-row gap-2 text-white text-sm items-center relative rounded-full bg-indigo-500 p-1 text-gray-400 hover:ring-2 hover: ring-indigo-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only">Cart</span>
                     <svg version="1.1" width="26" height="26" viewBox="0 0 256 256" xml:space="preserve">
@@ -55,9 +65,9 @@
             <div class="sm:hidden" id="mobile-menu">
               <div class="space-y-1 px-2 pb-3 pt-2">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" -->
-                <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Home</a>
-                <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Order History</a>
-                <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Logout</a>
+                <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Home</a>
+                <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Order History</a>
+                <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Logout</a>
               </div>
             </div>
           </nav>

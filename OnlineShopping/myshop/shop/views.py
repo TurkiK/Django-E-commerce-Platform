@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 from .forms import BalanceForm
-from .models import Product, Order, OrderItem, UserProfile
+from .models import Product, Order, OrderItem, UserProfile, Category
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
@@ -52,6 +52,23 @@ def home(request):
     cart = request.session.get('cart', {})
     cart_count = sum(item['quantity'] for item in cart.values())
     return render(request, 'home.html', {'products': products, 'cart_items': cart_count})
+
+
+@login_required
+def products(request, category_name):
+    # Retrieve the category object using the category name
+    category = get_object_or_404(Category, name__iexact=category_name)
+    
+    # Filter products that belong to this category
+    products = Product.objects.filter(category=category)
+
+    # Get the cart from the session and calculate the cart count
+    cart = request.session.get('cart', {})
+    cart_count = sum(item['quantity'] for item in cart.values())
+
+    # Render the template with filtered products and cart count
+    return render(request, 'products.html', {'products': products, 'cart_items': cart_count})
+
 
 @login_required
 def product_detail(request, pk):
@@ -161,10 +178,22 @@ def add_to_cart_home(request, pk):
         quantity = int(request.POST.get('quantity', 1))  # Get the quantity from the form, default to 1 if not found
         product = Product.objects.get(pk=pk)
         cart = request.session.get('cart', {})
-        if str(pk) in cart:
-            cart[str(pk)]['quantity'] += quantity
+
+        current_quantity_in_cart = cart.get(str(pk), {}).get('quantity', 0)
+        total_requested_quantity = current_quantity_in_cart + quantity
+
+        if total_requested_quantity <= product.stock:  # Check if the stock is sufficient
+            cart[str(pk)] = {
+                'price': float(product.price),
+                'quantity': total_requested_quantity
+            }
         else:
-            cart[str(pk)] = {'price': float(product.price), 'quantity': quantity}
+            # Add only the available stock to the cart
+            cart[str(pk)] = {
+                'price': float(product.price),
+                'quantity': product.stock
+            }
+
         request.session['cart'] = cart
         return redirect('home')
     return redirect('home')

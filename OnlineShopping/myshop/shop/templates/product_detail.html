@@ -5,9 +5,9 @@
 {% block content %}
     <div class="py-4 flex flex-col gap-10">
         <div class="flex flex-row text-sm gap-4 text-gray-400">
-            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'home' %}" class="hover:text-gray-700">Home</a>
             <span class="cursor-default">|</span>
-            <a href="#">{{ product.category.name }}</a>
+            <a href="{% url 'products' category_name=product.category.name %}" class="hover:text-gray-700">{{ product.category.name }}</a>
             <span class="cursor-default">|</span>
             <a class="text-gray-700 font-bold" href="#">{{ product.name }}</a>
         </div>
@@ -16,15 +16,15 @@
             <div class="flex flex-col w-1/2 gap-6">
                 <div>
                     <img
-                        class="rounded-md cursor-pointer hover:ring-2 hover:ring-gray-300 p-1"
+                        class="rounded-md cursor-pointer hover:ring-2 hover:ring-gray-300 p-2"
                         src="https://prd.place/500/500?id={{product.id}}"
                         onclick="window.open('https://prd.place/500/500?id={{product.id}}')"
                     />
                 </div>
                 <div class="flex flex-row gap-4 w-full overflow-auto p-1">
-                    <img class="rounded-md hover:ring-2 hover:ring-gray-300 cursor-pointer" src="https://placehold.co/75x75">
-                    <img class="rounded-md hover:ring-2 hover:ring-gray-300 cursor-pointer" src="https://placehold.co/75x75">
-                    <img class="rounded-md hover:ring-2 hover:ring-gray-300 cursor-pointer" src="https://placehold.co/75x75">
+                    <img class="rounded-md hover:ring-2 hover:ring-gray-300 cursor-pointer p-2" src="https://prd.place/75/75?id={{product.id}}">
+                    <img class="rounded-md hover:ring-2 hover:ring-gray-300 cursor-pointer p-2" src="https://prd.place/75/75?id={{product.id}}">
+                    <img class="rounded-md hover:ring-2 hover:ring-gray-300 cursor-pointer p-2" src="https://prd.place/75/75?id={{product.id}}">
                 </div>
             </div>
             <div class="flex flex-col justify-between gap-4 w-1/2 self-start p-2">
@@ -59,7 +59,7 @@
         <div class="flex flex-row justify-between gap-10">
             <div class="w-full">
                 <!-- Features Section -->
-                <div class="flex flex-row gap-10 cursor-default text-sm justify-center">
+                <div class="flex flex-row gap-10 cursor-default text-sm text-gray-700 justify-center">
                     <!-- Feature: Secure Marketplace -->
                     <div class="flex flex-row items-center gap-3">
                         <img src="https://www.svgrepo.com/show/18883/shield.svg" width="40" height="40">
@@ -93,7 +93,7 @@
                     {% csrf_token %}
                     <i  onclick="decrease()" class="fa-solid fa-minus rounded-full hover:bg-gray-300 transition duration-150 ease-in-out self-center cursor-pointer p-2"></i>
                     <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{product.stock}}"
-                        class="rounded ring-2 ring-gray-300"
+                        class="rounded ring-2 ring-gray-300 place-self-center text-center"
                     >
                     <i  onclick="increase()" class="fa-solid fa-plus rounded-full hover:bg-gray-300 transition duration-150 ease-in-out self-center cursor-pointer p-2"></i>
                     <input class="bg-indigo-500 rounded-md justify-center py-2 px-6 font-bold text-base text-white hover:bg-indigo-300 transition duration-150 ease-in-out cursor-pointer" type="submit" value="Add to Cart">

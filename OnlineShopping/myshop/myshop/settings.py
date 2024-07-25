@@ -64,6 +64,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'shop.context_processors.add_balance_to_context',  # Add this line
+                'shop.context_processors.categories_processor', 
             ],
         },
     },

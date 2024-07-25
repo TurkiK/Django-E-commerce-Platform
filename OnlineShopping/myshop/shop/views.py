@@ -17,7 +17,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            UserProfile.objects.create(user=user, balance=1000)  # Start with a default balance
+            UserProfile.objects.create(user=user, balance=0.00)  # Start with a default balance
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
@@ -49,7 +49,9 @@ def user_logout(request):
 @login_required
 def home(request):
     products = Product.objects.all()
-
+    cart = request.session.get('cart', {})
+    cart_count = sum(item['quantity'] for item in cart.values())
+    return render(request, 'home.html', {'products': products, 'cart_items': cart_count})
 
 @login_required
 def product_detail(request, pk):
@@ -136,6 +138,20 @@ def order_history(request):
     orders = Order.objects.filter(user=request.user)
     return render(request, 'order_history.html', {'orders': orders})
 
+
+@login_required
+def add_to_cart_home(request, pk):
+    if request.method == "POST":
+        quantity = int(request.POST.get('quantity', 1))  # Get the quantity from the form, default to 1 if not found
+        product = Product.objects.get(pk=pk)
+        cart = request.session.get('cart', {})
+        if str(pk) in cart:
+            cart[str(pk)]['quantity'] += quantity
+        else:
+            cart[str(pk)] = {'price': float(product.price), 'quantity': quantity}
+        request.session['cart'] = cart
+        return redirect('home')
+    return redirect('home')
 
 def purchase_item(request, product_id):
     user_profile = request.user.userprofile

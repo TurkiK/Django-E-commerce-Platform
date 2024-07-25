@@ -19,7 +19,7 @@ class Product(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    balance = models.DecimalField(max_digits=10, decimal_places=2)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # Set a default balance
 
     def __str__(self):
         return f'{self.user.username} - Balance: ${self.balance}'

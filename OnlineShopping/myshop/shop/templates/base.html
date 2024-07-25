@@ -24,6 +24,10 @@
                       <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Home</a>
                       <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Order History</a>
                       <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#fb923c] hover:text-white transition duration-300 ease-in-out">Logout</a>
+<!--                            {% if user.is_authenticated %}-->
+<!--                        <span>Welcome, {{ user.username }}! Balance: ${{ user_balance }}</span>-->
+<!--                     <a href="{% url 'add_balance' %}">Add to Balance</a>-->
+<!--                {% endif %}-->
                     </div>
                   </div>
                 </div>
@@ -57,11 +61,7 @@
               </div>
             </div>
           </nav>
-    {% if user.is_authenticated %}
-        <span>Welcome, {{ user.username }}! Balance: ${{ user_balance }}</span>
-        <a href="{% url 'add_balance' %}">Add to Balance</a>
-    {% endif %}
-    <a href="{% url 'logout' %}">Logout</a>
+
     </header>
     <div class="mb-auto flex-grow p-4 container mx-auto">
         {% block content %}

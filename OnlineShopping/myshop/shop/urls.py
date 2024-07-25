@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import add_balance
+from .views import add_balance, change_password
 
 urlpatterns = [
     path('register/', views.register, name='register'),
@@ -15,4 +15,6 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),
     path('order_history/', views.order_history, name='order_history'),
     path('add_balance/', add_balance, name='add_balance'),
+    path('user_info/', views.user_info, name='user_info'),
+    path('change-password/', change_password, name='change_password'),
 ]

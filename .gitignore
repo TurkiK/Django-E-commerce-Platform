@@ -162,5 +162,3 @@ cython_debug/
 #.idea/
 OnlineShopping/myshop/db.sqlite3
 *.sqlite3
-/OnlineShopping/myshop
-/OnlineShopping

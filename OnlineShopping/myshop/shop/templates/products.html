@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block cart_count %}
+    {% if cart_items %}
+        <!-- Display the cart item count if available -->
+        <div class="font-bold">{{ cart_items }}</div>    
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col items-center gap-16">
+        
+        <!-- Hero Section with Overlay -->
+        <div class="mt-5 relative">
+            <img 
+                class="rounded-lg w-full h-auto" 
+                src="https://i.ibb.co/kxWj7YQ/Untitled-design.png" 
+                alt="Overlay Image"
+            >
+            <div class="absolute inset-y-0 left-0 w-1/2 bg-black bg-opacity-50 flex flex-col justify-center text-2xl rounded-lg justify-items-start text-white px-20">
+                <!-- Hero Text -->
+                <div class="font-bold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-2 cursor-default">
+                    <p>Your One-Stop</p>
+                    <p>Electronic Market</p>
+                </div>
+                <!-- Hero Description -->
+                <div class="text-sm mb-6 cursor-default">
+                    <p>Welcome to e-shop, a place where you can browse and buy everything from electronics to your everyday items!</p>
+                </div>
+                <!-- Shop Now Button -->
+                <div>
+                    <a href="{% url 'cart_detail' %}">
+                        <button class="bg-indigo-500 rounded justify-center py-2 px-10 font-bold text-base sm:text-md md:text-md lg:text-lg hover:bg-indigo-300 transition duration-150 ease-in-out">
+                            Shop Now
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>      
+        
+        <!-- Features Section -->
+        <div class="flex flex-row gap-10 cursor-default">
+            <!-- Feature: Responsive Customer Service -->
+            <div class="flex flex-row items-center gap-8">
+                <img src="https://www.svgrepo.com/show/290052/headset.svg" width="50" height="50">
+                <div>
+                    <p class="text-base font-bold">Responsive</p>
+                    <p class="text-sm">Customer service 24/7</p>
+                </div>
+            </div>
+            <!-- Feature: Secure Marketplace -->
+            <div class="flex flex-row items-center gap-8">
+                <img src="https://www.svgrepo.com/show/18883/shield.svg" width="50" height="50">
+                <div>
+                    <p class="text-base font-bold">Secure</p>
+                    <p class="text-sm">Certified marketplace since 2015</p>
+                </div>
+            </div>
+            <!-- Feature: Free Shipping -->
+            <div class="flex flex-row items-center gap-8">
+                <img src="https://www.svgrepo.com/show/445701/delivery-fast.svg" width="50" height="50">
+                <div>
+                    <p class="text-base font-bold">Shipping</p>
+                    <p class="text-sm">Free, fast, and reliable worldwide</p>
+                </div>
+            </div>
+            <!-- Feature: Hassle-free Returns -->
+            <div class="flex flex-row items-center gap-8">
+                <img src="https://www.svgrepo.com/show/447761/return.svg" width="50" height="50">
+                <div>
+                    <p class="text-base font-bold">Transparent</p>
+                    <p class="text-sm">Hassle-free return policy</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Featured Products Section -->
+        <div>        
+            <div class="w-full justify-items-start mb-5 cursor-default">
+                <h1 class="text-3xl font-bold">Featured Products</h1>
+            </div>
+            <!-- Product List -->
+            <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 w-full max-w-6xl">
+                {% if products %}
+                    {% for product in products %}
+                    <li>
+                        <!-- Product Card -->
+                        <div class="rounded p-4 flex flex-col items-center hover:ring-4 hover:ring-gray-200 transition duration-150 ease-in-out h-full">
+                            <a class="flex flex-col flex-grow" href="{% url 'product_detail' pk=product.pk %}">
+                                <!-- Product Image -->
+                                <img 
+                                    class="rounded-md place-self-center" 
+                                    src="https://prd.place/300/400?id={{product.id}}" 
+                                    alt="{{ product.name }}" 
+                                    style="width: 150px; height: 200px;"
+                                >
+                                <!-- Product Category -->
+                                <span class="uppercase text-gray-500 mt-4">
+                                    {{ product.category.name }}
+                                </span>
+                                <!-- Product Name and Rating -->
+                                <div class="my-2">
+                                    <p class="text-sm">
+                                        {{ product.name }}
+                                    </p>
+                                    <div class="text-sm">
+                                        <i class="fa-solid fa-star text-yellow-500"></i> 
+                                        <span class="pt-2">4.2</span>
+                                    </div>
+                                </div>
+                                <!-- Product Price -->
+                                <p class="font-bold mt-auto">
+                                    ${{ product.price }}
+                                </p>
+                            </a>
+                            <!-- Add to Cart Button -->
+                            <form 
+                                class="rounded bg-indigo-500 hover:bg-indigo-300 w-full mt-2 transition duration-150 ease-in-out" 
+                                action="{% url 'add_to_cart_home' pk=product.pk %}" 
+                                method="post"
+                            >
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" value="1">
+                                <input 
+                                    type="submit" 
+                                    value="Add to cart" 
+                                    class="w-full py-1 text-center text-white font-semibold cursor-pointer"
+                                >
+                            </form>
+                        </div>
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center">No products available</p>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

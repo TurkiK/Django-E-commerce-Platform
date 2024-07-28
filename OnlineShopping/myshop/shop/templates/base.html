@@ -1,10 +1,12 @@
+{% load static %}
 {% load shop_tags %}
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="icon" type="image/png" href="https://www.svgrepo.com/show/90104/groceries.svg">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Online Shop{% endblock %}</title>
+    <link href="{% static 'dist/styles.css' %}" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/22a95aa40d.js" crossorigin="anonymous"></script>
     <!--
@@ -15,12 +17,15 @@
     -->
 </head>
 <body class="flex flex-col justify-between min-h-screen">
-    {% if user.is_authenticated and current_page != 'login' %}
-    <!-- Navbar -->
     <header class="h-15">
         <nav class="bg-indigo-500">
             <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
               <div class="relative flex h-16 items-center justify-between">
+                <div class="text-white">
+                  {% if user.is_authenticated %}
+                  <span>Welcome, {{ user.username }}!</span>
+                  {% endif %}
+                </div>
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 
                   <div class="flex flex-shrink-0 items-center">
@@ -30,22 +35,19 @@
                     <div class="flex space-x-4">
                       <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" -->
                       <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Home</a>
-                      <!-- Dropdown menu -->
-                      <div class="relative">
-                        <button type="button" class="dropdown-toggle flex items-center block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">
-                          <span class="pointer-events-none select-none">Products<i class="fa-solid fa-angle-down text-sm ms-3"></i></span>
-                        </button>
-                        <div class="dropdown-menu absolute hidden bg-indigo-500 text-white rounded-b-lg pb-2 w-48 z-10">
-                          {% for category in categories %}
-                          <a href="{% url 'products' category_name=category.name %}" class="block px-6 py-2 hover:bg-indigo-300 transition duration-300 ease-in-out">
-                              {{ category.name }}
-                          </a>
-                          {% endfor %}
-                        </div>
-                      </div>
                       <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Order History</a>
-                      <a href="{% url 'add_balance' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Add Balance</a>
+                      <a href="{% url 'user_info' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">User Details</a>
+                      {% if user.is_authenticated and current_page != 'login' %}
                       <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Logout</a>
+                      {% endif %}
+                      <div class="text-white">
+                        {% if user.is_authenticated %}
+                        <span>Balance: ${{ user_balance }}</span>
+                        <button class="bg-white text-indigo-500 font-bold py-2 px-4 rounded hover:bg-indigo-300 transition duration-150 ease-in-out">
+                            <a href="{% url 'add_balance' %}">Add to Balance</a>
+                        </button>
+                        {% endif %}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -67,12 +69,6 @@
                     {% endblock %}
                   </button></a>
                 </div>
-                <div class="text-white ms-3">
-                  {% if user.is_authenticated %}
-                  <span>{{ user.username }}, </span>
-                  <span>Balance: ${{ user_balance }}</span>
-                  {% endif %}
-                </div>
               </div>
             </div>
             <!-- Mobile menu, show/hide based on menu state. -->
@@ -81,12 +77,13 @@
                 <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" -->
                 <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Home</a>
                 <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Order History</a>
+                {% if user.is_authenticated and current_page != 'login' %}
                 <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Logout</a>
+                {% endif %}
               </div>
             </div>
           </nav>
     </header>
-    {% endif %}
     <div class="mb-auto flex-grow p-4 container mx-auto">
         {% block content %}
         {% endblock %}
@@ -94,41 +91,5 @@
     <footer class="h-10 text-center">
         &copy; 2024 Online Shop. All rights reserved.
     </footer>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-      // Select all dropdown toggle buttons
-      const dropdownToggles = document.querySelectorAll(".dropdown-toggle")
-
-      dropdownToggles.forEach((toggle) => {
-        toggle.addEventListener("click", () => {
-          // Find the next sibling element which is the dropdown menu
-          const dropdownMenu = toggle.nextElementSibling
-
-          // Toggle the 'hidden' class to show or hide the dropdown menu
-          if (dropdownMenu.classList.contains("hidden")) {
-            // Hide any open dropdown menus before showing the new one
-            document.querySelectorAll(".dropdown-menu").forEach((menu) => {
-              menu.classList.add("hidden")
-            })
-
-            dropdownMenu.classList.remove("hidden")
-          } else {
-            dropdownMenu.classList.add("hidden")
-          }
-        })
-      })
-
-      // Clicking outside of an open dropdown menu closes it
-      window.addEventListener("click", function (e) {
-        if (!e.target.matches(".dropdown-toggle")) {
-          document.querySelectorAll(".dropdown-menu").forEach((menu) => {
-            if (!menu.contains(e.target)) {
-              menu.classList.add("hidden")
-            }
-          })
-        }
-      }) 
-    })
-    </script>
 </body>
 </html>

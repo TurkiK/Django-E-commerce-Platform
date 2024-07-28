@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Category, Order, OrderItem, UserProfile
+from .models import Product, ProductImage, Category, Order, OrderItem, UserProfile
 
 # Admin for Category
 class CategoryAdmin(admin.ModelAdmin):
@@ -8,12 +8,18 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 # Admin for Product
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 1  # Number of extra forms to display
+
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'stock', 'category']
-    list_filter = ['category']
-    search_fields = ['name', 'description', 'category__name']
+    inlines = [
+        ProductImageInline,
+    ]
+    list_display = ('name', 'price', 'stock', 'category')
 
 admin.site.register(Product, ProductAdmin)
+admin.site.register(ProductImage)
 
 # Inline admin for Order Items within the Order admin
 class OrderItemInline(admin.TabularInline):

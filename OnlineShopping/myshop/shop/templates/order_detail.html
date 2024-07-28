@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Details{% endblock %}
+
+{% block content %}
+    <div>
+        <h2 class="text-indigo-500 text-2xl font-bold mb-6">Order Details for Order #{{ order.id }}</h2>
+    </div>
+<br>
+    <div class="relative bg-indigo-500 p-6 rounded-lg shadow-lg w-full max-w-md">
+        <p class="text-white text-xl">Total: ${{ order.total_price }}</p>
+        <p class="text-white text-xl">Completed: {{ order.is_completed }}</p>
+    </div>
+    <ul class="mt-4">
+        {% for item in items %}
+        <li>
+            <div class="relative bg-white p-4 rounded-lg shadow-lg w-full max-w-md mt-2">
+                <p>{{ item.product.name }} - Quantity: {{ item.quantity }} - Price per item: ${{ item.product.price }}</p>
+            </div>
+        </li>
+        {% empty %}
+        <li>
+            <div class="relative flex justify-center bg-cover bg-center">
+                <div class="relative bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                    <p class="text-black text-xl text-center">No items found in this order.</p>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <p class="text-indigo-500 underline mt-6"><a href="{% url 'order_history' %}">Back to Order History</a></p>
+{% endblock %}

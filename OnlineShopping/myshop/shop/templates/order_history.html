@@ -3,23 +3,31 @@
 {% block title %}Order History{% endblock %}
 
 {% block content %}
-    <div>
-        <h2 class="text-indigo-500 text-2xl font-bold mb-6">Order History</h2>
-    </div>
-<br>
-    <ul>
-        {% for order in orders %}
-            <li>Order #{{ order.id }} - Total: ${{ order.total_price }} - Completed: {{ order.is_completed }}</li>
-        {% empty %}
-            <li>
-                <div class="relative flex justify-center bg-cover bg-center">
-                    <div class="relative bg-indigo-500 p-6 rounded-lg shadow-lg w-full max-w-md">
-                        <p class="text-white text-2xl  text-center">You don't have any orders yet..</p>
-                        <p class="text-white text-center underline"><a href="http://127.0.0.1:8000/home/">Continue shopping..</a></p>
-                    </div>
-                </div>
-            </li>
-
-        {% endfor %}
-    </ul>
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h2 class="text-indigo-500 text-2xl font-bold mb-6">Order History</h2>
+    {% if orders %}
+        <div class="bg-white shadow-md rounded-lg">
+            <ul class="divide-y divide-gray-200">
+                {% for order in orders %}
+                    <li class="p-4 hover:bg-gray-50">
+                        Order #{{ order.id }} - Total: ${{ order.total_price }} - Completed:
+                        {% if order.is_completed %}
+                            <span class="text-green-500">Yes</span>
+                        {% else %}
+                            <span class="text-red-500">No</span>
+                        {% endif %}
+                        <a href="{% url 'order_detail' order.id %}" class="text-blue-500 float-right underline">View Details</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="flex justify-center items-center h-64">
+            <div class="text-center">
+                <p class="text-xl text-indigo-500">You don't have any orders yet.</p>
+                <p><a href="{% url 'home' %}" class="text-blue-500 underline">Continue shopping...</a></p>
+            </div>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

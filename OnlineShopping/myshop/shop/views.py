@@ -130,6 +130,9 @@ def checkout(request):
     cart = request.session.get('cart', {})
     total_price = Decimal('0.00')
 
+    if cart == {}:
+        return redirect('cart_detail')
+
     # Calculate total price and prepare to update stock
     products = Product.objects.filter(id__in=cart.keys())
     for product in products:

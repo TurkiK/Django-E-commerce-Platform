@@ -173,11 +173,21 @@ def checkout(request):
         return render(request, 'checkout.html', {'error': 'Insufficient funds'})
 
     return redirect('cart_detail')
+
 @login_required
 def order_history(request):
     orders = Order.objects.filter(user=request.user)
     return render(request, 'order_history.html', {'orders': orders})
 
+@login_required
+def order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    items = order.items.all()  # Fetching items using the related_name
+
+    return render(request, 'order_detail.html', {
+        'order': order,
+        'items': items
+    })
 
 @login_required
 def add_to_cart_home(request, pk):

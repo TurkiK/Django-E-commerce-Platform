@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import add_balance, change_password
+from .views import add_balance, change_password, order_detail
 
 urlpatterns = [
     path('register/', views.register, name='register'),
@@ -18,4 +18,5 @@ urlpatterns = [
     path('add_balance/', add_balance, name='add_balance'),
     path('user_info/', views.user_info, name='user_info'),
     path('change-password/', change_password, name='change_password'),
+    path('order_detail/<int:order_id>/', order_detail, name='order_detail'),
 ]

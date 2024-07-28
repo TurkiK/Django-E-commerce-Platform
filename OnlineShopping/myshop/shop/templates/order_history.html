@@ -3,12 +3,23 @@
 {% block title %}Order History{% endblock %}
 
 {% block content %}
-    <h1>Order History</h1>
+    <div>
+        <h2 class="text-indigo-500 text-2xl font-bold mb-6">Order History</h2>
+    </div>
+<br>
     <ul>
         {% for order in orders %}
             <li>Order #{{ order.id }} - Total: ${{ order.total_price }} - Completed: {{ order.is_completed }}</li>
         {% empty %}
-            <li>No orders yet.</li>
+            <li>
+                <div class="relative flex justify-center bg-cover bg-center">
+                    <div class="relative bg-indigo-500 p-6 rounded-lg shadow-lg w-full max-w-md">
+                        <p class="text-white text-2xl  text-center">You don't have any orders yet..</p>
+                        <p class="text-white text-center underline"><a href="http://127.0.0.1:8000/home/">Continue shopping..</a></p>
+                    </div>
+                </div>
+            </li>
+
         {% endfor %}
     </ul>
 {% endblock %}

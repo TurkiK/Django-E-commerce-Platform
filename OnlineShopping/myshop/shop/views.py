@@ -11,6 +11,10 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from decimal import Decimal
 
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+from .forms import CustomPasswordChangeForm
+
 
 def register(request):
     if request.method == 'POST':
@@ -227,3 +231,24 @@ def add_balance(request):
         form = BalanceForm()
 
     return render(request, 'add_balance.html', {'form': form})
+
+
+@login_required
+def user_info(request):
+    return render(request, 'user_info.html', {'user': request.user})
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = CustomPasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})

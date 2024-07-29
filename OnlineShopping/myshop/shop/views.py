@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 from .forms import BalanceForm
-from .models import Product, Order, OrderItem, UserProfile, Category
+from .models import Product, Order, OrderItem, UserProfile, Category, Review
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
@@ -14,7 +14,8 @@ from decimal import Decimal
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from .forms import CustomPasswordChangeForm
-
+from django.db.models import Avg
+from django.utils import timezone
 
 def register(request):
     if request.method == 'POST':
@@ -55,6 +56,12 @@ def home(request):
     products = Product.objects.all()
     cart = request.session.get('cart', {})
     cart_count = sum(item['quantity'] for item in cart.values())
+
+    # Calculate the average rating for each product and format it to one decimal place
+    for product in products:
+        avg_rating = product.reviews.aggregate(Avg('rating'))['rating__avg'] or 0
+        product.avg_rating = f"{avg_rating:.1f}"
+
     return render(request, 'home.html', {'products': products, 'cart_items': cart_count})
 
 
@@ -69,6 +76,11 @@ def products(request, category_name):
     # Get the cart from the session and calculate the cart count
     cart = request.session.get('cart', {})
     cart_count = sum(item['quantity'] for item in cart.values())
+    
+    # Calculate the average rating for each product and format it to one decimal place
+    for product in products:
+        avg_rating = product.reviews.aggregate(Avg('rating'))['rating__avg'] or 0
+        product.avg_rating = f"{avg_rating:.1f}"
 
     # Render the template with filtered products and cart count
     return render(request, 'products.html', {'products': products, 'cart_items': cart_count})
@@ -77,7 +89,17 @@ def products(request, category_name):
 @login_required
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    return render(request, 'product_detail.html', {'product': product})
+    reviews = Review.objects.filter(product=product)
+    
+    # Calculate the average rating to one decimal place
+    average_rating = reviews.aggregate(Avg('rating'))['rating__avg'] or 0
+    average_rating = round(average_rating, 1)
+
+    return render(request, 'product_detail.html', {
+        'product': product,
+        'reviews': reviews,
+        'average_rating': average_rating
+    })
 
 
 @login_required
@@ -262,3 +284,28 @@ def change_password(request):
     else:
         form = CustomPasswordChangeForm(request.user)
     return render(request, 'change_password.html', {'form': form})
+
+
+@login_required
+def rate_product(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    user = request.user
+
+    # Check if the user has already reviewed the product
+    review = Review.objects.filter(product=product, user=user).first()
+
+    if request.method == 'POST':
+        rating = int(request.POST.get('rating'))
+        comment = request.POST.get('comment')
+
+        if review:
+            # Update the existing review
+            review.rating = rating
+            review.comment = comment
+            review.save()
+        else:
+            # Create a new review
+            Review.objects.create(product=product, user=user, rating=rating, comment=comment, created_at=timezone.now())
+
+        return redirect('product_detail', pk=pk)
+    

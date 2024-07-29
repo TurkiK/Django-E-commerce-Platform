@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductImage, Category, Order, OrderItem, UserProfile
+from .models import Product, ProductImage, Category, Order, OrderItem, UserProfile, Review
 
 # Admin for Category
 class CategoryAdmin(admin.ModelAdmin):
@@ -46,3 +46,10 @@ class UserProfileAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'user__email']
 
 admin.site.register(UserProfile, UserProfileAdmin)
+
+
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['product', 'user', 'rating', 'created_at']
+    list_filter = ['product', 'user']
+
+admin.site.register(Review, ReviewAdmin)

@@ -45,6 +45,7 @@
                       </div>
                       <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Order History</a>
                       <a href="{% url 'add_balance' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Add Balance</a>
+                      <a href="{% url 'user_info' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Profile</a>
                       <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Logout</a>
                     </div>
                   </div>
@@ -73,15 +74,6 @@
                   <span>Balance: ${{ user_balance }}</span>
                   {% endif %}
                 </div>
-              </div>
-            </div>
-            <!-- Mobile menu, show/hide based on menu state. -->
-            <div class="sm:hidden" id="mobile-menu">
-              <div class="space-y-1 px-2 pb-3 pt-2">
-                <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" -->
-                <a href="{% url 'home' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Home</a>
-                <a href="{% url 'order_history' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Order History</a>
-                <a href="{% url 'logout' %}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-300 hover:text-white transition duration-300 ease-in-out">Logout</a>
               </div>
             </div>
           </nav>

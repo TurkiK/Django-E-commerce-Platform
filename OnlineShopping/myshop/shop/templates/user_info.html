@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}User Details{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="mx-auto relative bg-indigo-500 p-10 rounded-lg shadow-lg w-full max-w-md">
+            <h2 class="text-white text-2xl font-bold mb-6 text-center">User Details</h2>
+            <div class="text-white">
+                <label class="block text-white font-bold mb-2" >Username:</label>
+                <p>{{ user.username }}</p>
+            </div>
+            <br>
+            <div>
+                <label class="block text-white font-bold mb-2" >Balance:</label>
+                <div class="text-white">
+                    {% if user.is_authenticated %}
+                    <p>Balance: ${{ user_balance }}</p>
+                    {% endif %}
+                </div>
+                <div class="text-center">
+
+            </div>
+            </div>
+            <br>
+            <p class="text-white underline"><a href="{% url 'change_password' %}" >Change your password?</a></p>
+        </div>
+    </div>
+<div class="container">
+
+</div>
+{% endblock %}

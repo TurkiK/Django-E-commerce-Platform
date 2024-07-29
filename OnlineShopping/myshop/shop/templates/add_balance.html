@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="mx-auto relative bg-indigo-500 p-10 rounded-lg shadow-lg w-full max-w-md">
     <h2>Add to Balance</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Add Balance</button>
     </form>
+    </div>
 
     <style>
     input {
@@ -17,6 +19,41 @@
         border-radius: 0.5rem; /* Rounded corners */
         width: 100%; /* Full width */
         padding: 0.5rem; /* Padding for input fields */
+        margin-bottom: 0.5rem;
     }
+
+    label {
+        margin-bottom: 0.5rem;
+        color: white;
+        font-weight: 700;
+        }
+
+
+    h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        }
+
+    p {
+        color: white;
+        margin-bottom: 1.5rem;
+        }
+
+    button, input:where([type=button]), input:where([type=reset]), input:where([type=submit]){
+        background-color: #ffffff;
+        color: rgb(99 102 241);
+        font-weight: 700;
+        border-radius: 0.5rem;
+        text-align: center;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        }
+
     </style>
 {% endblock %}

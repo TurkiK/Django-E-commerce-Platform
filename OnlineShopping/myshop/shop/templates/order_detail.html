@@ -3,30 +3,35 @@
 {% block title %}Order Details{% endblock %}
 
 {% block content %}
-    <div>
-        <h2 class="text-indigo-500 text-2xl font-bold mb-6">Order Details for Order #{{ order.id }}</h2>
-    </div>
-<br>
-    <div class="relative bg-indigo-500 p-6 rounded-lg shadow-lg w-full max-w-md">
-        <p class="text-white text-xl">Total: ${{ order.total_price }}</p>
-        <p class="text-white text-xl">Completed: {{ order.is_completed }}</p>
-    </div>
-    <ul class="mt-4">
-        {% for item in items %}
-        <li>
-            <div class="relative bg-white p-4 rounded-lg shadow-lg w-full max-w-md mt-2">
-                <p>{{ item.product.name }} - Quantity: {{ item.quantity }} - Price per item: ${{ item.product.price }}</p>
-            </div>
-        </li>
-        {% empty %}
-        <li>
-            <div class="relative flex justify-center bg-cover bg-center">
-                <div class="relative bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-                    <p class="text-black text-xl text-center">No items found in this order.</p>
+<div class="pt-8"> <!-- Add padding top to ensure it's not sticking to the very top -->
+    <div class="flex flex-col items-center w-full">
+        <div class="w-full max-w-2xl p-5 bg-indigo-500 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-white mb-6">Order Details for Order #{{ order.id }}</h2>
+            <p class="text-xl text-white">Total: ${{ order.total_price }}</p>
+            <p class="text-xl text-white">Completed:
+                {% if order.is_completed %}
+                    <span class="text-green-500">Yes</span>
+                {% else %}
+                    <span class="text-red-500">No</span>
+                {% endif %}
+            </p>
+        </div>
+        <ul class="w-full max-w-2xl mt-4 space-y-2">
+            {% for item in items %}
+            <li>
+                <div class="bg-white p-4 rounded-lg shadow-lg">
+                    <p>{{ item.product.name }} - Quantity: {{ item.quantity }} - Price per item: ${{ item.product.price }}</p>
                 </div>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
-    <p class="text-indigo-500 underline mt-6"><a href="{% url 'order_history' %}">Back to Order History</a></p>
+            </li>
+            {% empty %}
+            <li class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <p class="text-xl">No items found in this order.</p>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="mt-6">
+            <a href="{% url 'order_history' %}" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Back to Order History</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

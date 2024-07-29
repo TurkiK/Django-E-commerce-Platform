@@ -190,7 +190,7 @@ def checkout(request):
         user_profile.balance -= total_price
         user_profile.save()
         request.session['cart'] = {}  # Clear the cart
-        return redirect('order_history')
+        return redirect('order_detail', order.id)
     else:
         return render(request, 'checkout.html', {'error': 'Insufficient funds'})
 

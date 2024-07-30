@@ -25,4 +25,7 @@ While primarily focusing on the API, the project provides a solid foundation for
 ## ERD Diagram
 ![38559047-897f-4074-8721-0a998840db0d](https://github.com/user-attachments/assets/86f6cfd8-bae9-433a-a965-079626ec6ea5)
 
+## Video Demo
+[![image](https://github.com/user-attachments/assets/da1e6360-55e3-4688-bf79-483ab9f64a89)](https://www.youtube.com/watch?v=awATSRgF70g)
+
 ## Website Screenshots

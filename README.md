@@ -70,6 +70,16 @@ https://youtu.be/awATSRgF70g
 
 ## Website Demo Screenshots
 
+- Admin:
+  ![Admin](https://github.com/user-attachments/assets/b2fa9a00-e9e1-47cc-957e-209b5398869e)
+  ![Admin2](https://github.com/user-attachments/assets/a3671221-f50c-42e2-9842-b7723bb497a3)
+  ![Admin3](https://github.com/user-attachments/assets/5ea9bdc0-62a1-432f-b5e3-466b226c75fa)
+  ![Admin4](https://github.com/user-attachments/assets/c3962b92-f49b-476d-9aaa-41ecb1955676)
+  ![Admin5](https://github.com/user-attachments/assets/91d33a5b-e807-4688-99ce-a5b4f93bf78e)
+  ![Admin6](https://github.com/user-attachments/assets/1ab93c23-b46c-4d36-b71e-1019659bc4c4)
+  ![Admin7](https://github.com/user-attachments/assets/24838da0-68d6-4825-a624-8d768405e9e7)
+  ![Admin8](https://github.com/user-attachments/assets/4d2229aa-d437-4b12-868c-84ffff4202cd)
+
 - Login:
   ![Login](https://github.com/user-attachments/assets/ecc57edf-088c-438c-afbc-461f3b8ac0ad)
   ![Login-2](https://github.com/user-attachments/assets/f275370d-b5a6-44b4-8ec1-eeff560a9e92)

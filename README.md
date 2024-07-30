@@ -23,35 +23,44 @@ This project demonstrates the application of skills learned during Tuwaiq's Djan
 While primarily focusing on the API, the project provides a solid foundation for building a full-stack e-commerce solution, demonstrating the practical application of Django and RESTful API concepts learned during the Tuwaiq BootCamp.
 
 ## How To Run:
-- Open the terminal in the IDE
-- Run this command
-  ```bash
-  cd OnlineShopping
-  ```
-- Run this command
-  ```bash
-  cd myshop
-  ```
-- Run this command
-  ```bash
-  pip install Django
-  ```
-- Run this command
-  ```bash
-  pip install django-material-admin
-  ```
-- Run this command
-  ```bash
-  python manage.py makemigrations
-  ```
-- Run this command
-  ```bash
-  python manage.py migrate
-  ```
-- Run this command
-  ```bash
-  python manage.py runserver
-  ```
+To run the project, follow these steps in your terminal:
+
+1. **Open the terminal in your IDE.**
+
+2. **Navigate to the `OnlineShopping` directory:**
+   ```bash
+   cd OnlineShopping
+   ```
+   
+3. **Navigate to the `myshop` directory:**
+    ```bash
+    cd myshop
+    ```
+
+4. **Install Django**
+    ```bash
+    pip install Django
+    ```
+
+5. **Install Django Material Admin**
+    ```bash
+    pip install django-material-admin
+    ```
+
+6. **Make migrations**
+    ```bash
+    python manage.py makemigrations
+    ```
+
+7. **Appy migrations**
+    ```bash
+    python manage.py migrate
+    ```
+
+8. **Run the server**
+    ```bash
+    python manage.py runserver
+    ```
 
 ## ERD Diagram
 ![38559047-897f-4074-8721-0a998840db0d](https://github.com/user-attachments/assets/86f6cfd8-bae9-433a-a965-079626ec6ea5)

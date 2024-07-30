@@ -24,7 +24,10 @@ While primarily focusing on the API, the project provides a solid foundation for
 
 ## How To Run:
 - Open the terminal in the IDE
-- Run this command ```bash cd OnlineShopping```
+- Run this command
+  ```bash
+  cd OnlineShopping
+  ```
 - Run this command (cd myshop)
 - Run this command (pip install Django)
 - Run this command (pip install django-material-admin)

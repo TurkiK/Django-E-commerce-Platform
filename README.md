@@ -28,12 +28,30 @@ While primarily focusing on the API, the project provides a solid foundation for
   ```bash
   cd OnlineShopping
   ```
-- Run this command (cd myshop)
-- Run this command (pip install Django)
-- Run this command (pip install django-material-admin)
-- Run this command (python manage.py makemigrations)
-- Run this command (python manage.py migrate)
-- Run this command (python manage.py runserver)
+- Run this command
+  ```bash
+  cd myshop
+  ```
+- Run this command
+  ```bash
+  pip install Django
+  ```
+- Run this command
+  ```bash
+  pip install django-material-admin
+  ```
+- Run this command
+  ```bash
+  python manage.py makemigrations
+  ```
+- Run this command
+  ```bash
+  python manage.py migrate
+  ```
+- Run this command
+  ```bash
+  python manage.py runserver
+  ```
 
 ## ERD Diagram
 ![38559047-897f-4074-8721-0a998840db0d](https://github.com/user-attachments/assets/86f6cfd8-bae9-433a-a965-079626ec6ea5)

@@ -1,5 +1,5 @@
 # Django-E-commerce-Platform
-This project demonstrates the application of skills learned during Tuwaiq's Django RESTful API program. It showcases a robust backend for an e-commerce platform, emphasizing RESTful API design principles and Django best practices.
+This project demonstrates the application of skills learned during Tuwaiq's Django RESTful API program. It showcases a robust backend for an e-commerce platform, emphasizing on Django best practices.
 
 ## Key Features:
 - RESTful API endpoints for all core e-commerce functionalities
